@@ -1,0 +1,82 @@
+<div
+  style="padding:2rem; font-family:'Helvetica Neue', Arial, sans-serif; background:#f5f7fa; min-height:100vh;"
+>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+    <h1 style="margin:0; font-size:1.5rem; color:#333;">Productos</h1>
+    <form action="/api/users/logout" method="GET" style="margin:0;">
+      <button type="submit" style="padding:0.6rem 1rem; border:none; border-radius:12px; font-size:0.95rem; cursor:pointer; background:#e74c3c; color:white;" 
+        onmouseover="this.style.background='#c0392b'" 
+        onmouseout="this.style.background='#e74c3c'">
+        Cerrar sesión
+      </button>
+    </form>
+  </div>
+  <div style="text-align:center; margin-bottom:2rem;">
+    <h1 style="font-size:1.8rem; color:#333;">Hola,
+      {{firstname}}
+      {{lastname}}
+      👋</h1>
+    <p>Estos son algunos de nuestros productos destacados:</p>
+  </div>
+
+  <div
+    style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem;"
+  >
+    <!-- Producto 1 -->
+    <div
+      style="background:#fff; border-radius:16px; padding:1.5rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; transition:transform 0.2s;"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
+        alt="Heladera"
+        style="max-width:100%; height:160px; object-fit:contain; margin-bottom:1rem;"
+      />
+      <h2 style="font-size:1.2rem; margin:0.5rem 0; color:#333;">Heladera</h2>
+      <p style="color:#666; margin-bottom:1rem;">Capacidad 300L, bajo consumo
+        energético.</p>
+      <button
+        style="padding:0.6rem 1rem; background:#4a90e2; color:#fff; border:none; border-radius:12px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;"
+        onmouseover="this.style.background='#357abd'"
+        onmouseout="this.style.background='#4a90e2'"
+      >Comprar</button>
+    </div>
+
+    <!-- Producto 2 -->
+    <div
+      style="background:#fff; border-radius:16px; padding:1.5rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; transition:transform 0.2s;"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2972/2972149.png"
+        alt="Microondas"
+        style="max-width:100%; height:160px; object-fit:contain; margin-bottom:1rem;"
+      />
+      <h2 style="font-size:1.2rem; margin:0.5rem 0; color:#333;">Microondas</h2>
+      <p style="color:#666; margin-bottom:1rem;">Con grill y funciones rápidas
+        de cocción.</p>
+      <button
+        style="padding:0.6rem 1rem; background:#4a90e2; color:#fff; border:none; border-radius:12px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;"
+        onmouseover="this.style.background='#357abd'"
+        onmouseout="this.style.background='#4a90e2'"
+      >Comprar</button>
+    </div>
+
+    <!-- Producto 3 -->
+    <div
+      style="background:#fff; border-radius:16px; padding:1.5rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; transition:transform 0.2s;"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/713/713932.png"
+        alt="Lavarropas"
+        style="max-width:100%; height:160px; object-fit:contain; margin-bottom:1rem;"
+      />
+      <h2 style="font-size:1.2rem; margin:0.5rem 0; color:#333;">Lavarropas</h2>
+      <p style="color:#666; margin-bottom:1rem;">Automático, 8kg de carga, 1200
+        RPM.</p>
+      <button
+        style="padding:0.6rem 1rem; background:#4a90e2; color:#fff; border:none; border-radius:12px; font-size:0.9rem; cursor:pointer; transition:background 0.2s;"
+        onmouseover="this.style.background='#357abd'"
+        onmouseout="this.style.background='#4a90e2'"
+      >Comprar</button>
+    </div>
+  </div>
+</div>

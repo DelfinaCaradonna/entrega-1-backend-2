@@ -1,0 +1,74 @@
+<div
+  style="display:flex; align-items:center; justify-content:center; height:100vh; font-family:'Helvetica Neue', Arial, sans-serif; background:#f5f7fa;"
+>
+  {{#if error}}
+    <div class="alert">¡Registro fallido! Intenta nuevamente</div>
+  {{/if}}
+  <div
+    style="background:#fff; padding:2rem; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.08); width:100%; max-width:400px;"
+  >
+    <h1
+      style="text-align:center; font-size:1.5rem; margin-bottom:1.5rem; color:#333;"
+    >Crear Cuenta</h1>
+    <form
+      action="/api/users/register"
+      method="POST"
+      style="display:flex; flex-direction:column; gap:1rem;"
+    >
+      <input
+        type="text"
+        name="firstname"
+        placeholder="Nombre"
+        required
+        style="padding:0.75rem 1rem; border:1px solid #ddd; border-radius:12px; font-size:1rem; outline:none;"
+      />
+      <input
+        type="text"
+        name="lastname"
+        placeholder="Apellido"
+        required
+        style="padding:0.75rem 1rem; border:1px solid #ddd; border-radius:12px; font-size:1rem; outline:none;"
+      />
+      <input
+        type="number"
+        name="age"
+        placeholder="Edad"
+        required
+        style="padding:0.75rem 1rem; border:1px solid #ddd; border-radius:12px; font-size:1rem; outline:none;"
+      />
+      <input
+        type="email"
+        name="mail"
+        placeholder="Mail"
+        required
+        style="padding:0.75rem 1rem; border:1px solid #ddd; border-radius:12px; font-size:1rem; outline:none;"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        required
+        style="padding:0.75rem 1rem; border:1px solid #ddd; border-radius:12px; font-size:1rem; outline:none;"
+      />
+      <div
+        class="actions"
+        style="display:flex; flex-direction:column; gap:0.75rem;"
+      >
+        <button
+          type="submit"
+          class="btn-register"
+          style="padding:0.8rem 1rem; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background:#4a90e2; color:white;"
+          onmouseover="this.style.background='#357abd'"
+          onmouseout="this.style.background='#4a90e2'"
+        >Registrarse</button>
+        <a href="/"><button
+            type="button"
+            class="btn-back"
+            style="padding:0.8rem 1rem; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background:#f0f0f0; color:#333;"
+            onmouseover="this.style.background='#e0e0e0'"
+            onmouseout="this.style.background='#f0f0f0'"
+          >Volver al login</button></a>
+      </div>
+    </form>
+  </div>
+</div>
