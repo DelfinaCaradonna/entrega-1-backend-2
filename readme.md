@@ -1,69 +1,114 @@
-# 🚀 Entrega N1 - Backend II: Diseño y Arquitectura Backend
+# 🚀 Entrega Final - Backend II: Sistema Completo de E-commerce
 
 ## 📋 Descripción del Proyecto
 
-Este proyecto es la **primera entrega** del curso **Backend II: Diseño y Arquitectura Backend** de Coderhouse. Se trata de una aplicación web completa que implementa un sistema de autenticación y autorización robusto utilizando las tecnologías más modernas del ecosistema Node.js.
+Este proyecto es la **entrega final** del curso **Backend II: Diseño y Arquitectura Backend** de Coderhouse. Se trata de una aplicación web completa que implementa:
+
+- **Autenticación y autorización** robusta con JWT y Passport.js
+- **Gestión de usuarios** con roles (admin/user)
+- **Gestión de productos** (CRUD)
+- **Carrito de compras** con persistencia en MongoDB
+- **Sistema de compras** con tickets y control de stock
+- **Recuperación de contraseña** vía correo con Nodemailer
+- Arquitectura escalable con **DAO, Repository y DTO**
+- **CORS** configurado para permitir requests desde el frontend
+
+La estructura de carpetas está organizada para **facilitar el mantenimiento, escalabilidad y separación de responsabilidades**.
+
+---
 
 ## 🎯 Objetivos del Proyecto
 
-- Implementar un sistema de autenticación seguro con JWT
-- Manejar autorización de usuarios con diferentes roles
-- Utilizar cookies firmadas para mayor seguridad
-- Integrar Passport para gestión de autenticación
-- Crear una arquitectura escalable y mantenible
+- Implementar un **sistema de autenticación seguro** con JWT
+- Gestionar **roles y permisos** de usuarios
+- Manejar **cookies firmadas** para seguridad adicional
+- Integrar **Passport.js** para autenticación
+- Crear **endpoints RESTful** para productos y carrito
+- Implementar **procesamiento de compras** con tickets y stock
+- Aplicar **patrones de diseño** (DAO, Repository, DTO)
+- Habilitar **CORS** para requests desde el frontend
+
+---
 
 ## 🔐 Funcionalidades Implementadas
 
-### **Autenticación**
-- ✅ **Registro de usuarios** con validación de datos
-- ✅ **Login seguro** con verificación de credenciales
-- ✅ **Logout completo** con limpieza de cookies
-- ✅ **Recuperación de contraseña** con actualización segura
+### **Usuarios**
 
-### **Autorización**
-- ✅ **Middleware de autenticación** con Passport.js
-- ✅ **Protección de rutas** sensibles
-- ✅ **Sistema de roles** (admin/user)
-- ✅ **Verificación JWT** en cada request
+- ✅ Registro de usuarios con validación y hash de contraseñas
+- ✅ Login seguro y creación de JWT
+- ✅ Logout y limpieza de cookies
+- ✅ Recuperación de contraseña mediante correo con Nodemailer y token seguro
 
-### **Seguridad**
-- ✅ **Encriptación de contraseñas** con bcrypt
-- ✅ **Cookies firmadas** para mayor seguridad
-- ✅ **Tokens JWT** con expiración
-- ✅ **Validación de datos** en todos los endpoints
+### **Autorización y Seguridad**
 
-## 📱 Uso de la Aplicación
+- ✅ Middleware de autenticación con Passport.js
+- ✅ Protecciones de rutas sensibles según rol (`USER` / `ADMIN`)
+- ✅ Tokens JWT con expiración
+- ✅ Cookies firmadas
+- ✅ Validación de datos en todos los endpoints
+
+### **Productos**
+
+- ✅ Crear, actualizar, eliminar y listar productos (solo admin)
+- ✅ Consultar productos por ID o listar todos (admin y usuario)
+
+### **Carrito de Compras**
+
+- ✅ Agregar productos al carrito
+- ✅ Modificar cantidad de productos
+- ✅ Eliminar productos del carrito
+- ✅ Vaciar carrito completo
+- ✅ Comprar carrito: genera ticket y actualiza stock
+
+### **Arquitectura y Diseño**
+
+- ✅ Uso de **DAO** para acceso a la base de datos
+- ✅ Uso de **Repository** y **DTO** para manipular datos y mantener la capa de negocio separada
+- ✅ Estructura de carpetas modular y escalable
+- ✅ Integración con **Nodemailer** para recuperación de contraseña
+- ✅ Configuración de **CORS** para permitir requests externas
 
 ### **Flujo de Usuario**
 
 1. **Registro**
+
    - Ir a `/register`
-   - Completar formulario con datos personales
-   - Sistema valida email único y crea usuario
+   - Completar formulario
+   - Usuario creado con rol `USER` o `ADMIN` si es `adminCoder@coder.com`
 
 2. **Login**
+
    - Ir a `/` (página principal)
    - Ingresar email y contraseña
-   - Sistema valida credenciales y genera JWT
+   - JWT generado y cookie firmada creada
 
 3. **Acceso a Contenido Protegido**
-   - Después del login, redirige a `/products`
-   - Vista protegida que muestra datos del usuario
+
+   - Redirige a `/current` o `/products` según rol
    - Solo accesible con token JWT válido
 
-4. **Logout**
-   - Hacer clic en logout
-   - Sistema limpia cookies y redirige al login
+4. **Gestión de Productos** (solo admin)
+
+   - Crear, actualizar o eliminar productos mediante `/api/products`
+
+5. **Carrito y Compras**
+   - Agregar productos al carrito
+   - Modificar cantidad o eliminar productos
+   - Comprar carrito genera ticket y actualiza stock
+
+---
 
 ### **Usuarios de Prueba**
 
-- **Admin**: `adminCoder@coder.com` (rol: admin)
-- **Usuario regular**: Cualquier email registrado (rol: user)
+- **Admin**: `adminCoder@coder.com` / contraseña usada al registrar
+- **Usuario regular**: cualquier email registrado
+
+---
 
 <div align="center">
 
 ### Gracias por revisar mi proyecto! 🌟
 
-*Desarrollado con ❤️ para el curso de Coderhouse*
+_Desarrollado con ❤️ para el curso de Coderhouse_
 
 </div>

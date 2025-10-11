@@ -2,7 +2,21 @@
   style="display:flex; align-items:center; justify-content:center; height:100vh;"
 >
   {{#if error}}
-    <div class="alert">¡Login failed! Revisa tus credenciales</div>
+    <div
+      class="alert"
+      style="color:#b00020; text-align:center; margin-bottom:1rem;"
+    >
+      ¡Login fallido! Revisa tus credenciales.
+    </div>
+  {{/if}}
+
+  {{#if reset}}
+    <div
+      class="alert"
+      style="color:#2e7d32; text-align:center; margin-bottom:1rem;"
+    >
+      ✅ Contraseña actualizada correctamente. Ahora podés iniciar sesión.
+    </div>
   {{/if}}
   <div
     style="background:#fff; padding:2rem; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.08); width:100%; max-width:400px;"
@@ -65,3 +79,16 @@
     </form>
   </div>
 </div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search); if
+  (urlParams.get("reset") === "ok") { const alertDiv =
+  document.createElement("div"); alertDiv.textContent = "Contraseña actualizada
+  correctamente ✅"; alertDiv.style.cssText = ` position: fixed; top: 20px;
+  left: 50%; transform: translateX(-50%); background: #e8f5e9; color: #2e7d32;
+  padding: 0.8rem 1.2rem; border-radius: 8px; box-shadow: 0 4px 12px
+  rgba(0,0,0,0.1); font-size: 1rem; opacity: 0; transition: opacity 0.5s ease;
+  z-index: 1000; `; document.body.appendChild(alertDiv); setTimeout(() =>
+  (alertDiv.style.opacity = 1), 100); setTimeout(() => (alertDiv.style.opacity =
+  0), 3000); setTimeout(() => alertDiv.remove(), 3500); }
+</script>

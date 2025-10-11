@@ -1,15 +1,9 @@
-import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import { generateToken } from "../utils/jwt.js";
-import userModel from "../models/userModel.js";
-
-const createHash = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-};
-
-const isValidPassword = (user, password) => {
-  return bcrypt.compareSync(password, user.password);
-};
+import userModel from "../dao/models/userModel.js";
+import { createHash, isValidPassword } from "../utils/bcrypt.js";
+import { sendPasswordResetMail } from "../utils/mailer.js";
 
 export async function loginController(req, res) {
   const { mail, password } = req.body;
@@ -20,7 +14,11 @@ export async function loginController(req, res) {
 
   const user = await userModel.findOne({ mail });
 
-  if (!user || !isValidPassword(user, password)) {
+  if (!user || !user.password || typeof user.password !== "string") {
+    return res.status(401).redirect("/?error=1");
+  }
+
+  if (!isValidPassword(password, user.password)) {
     return res.status(401).redirect("/?error=1");
   }
 
@@ -44,7 +42,7 @@ export async function registerController(req, res) {
   }
 
   const isAdmin = mail === "adminCoder@coder.com";
-  const role = isAdmin ? "admin" : "user";
+  const role = isAdmin ? "ADMIN" : "USER";
   const hashedPassword = createHash(password);
 
   const newUser = await userModel.create({
@@ -75,13 +73,38 @@ export async function forgotPasswordController(req, res) {
     return res.status(404).send("Usuario no encontrado");
   }
 
-  const hashedPassword = bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10));
-  await userModel.updateOne(
-    { _id: user._id },
-    { $set: { password: hashedPassword } }
-  );
+  const token = jwt.sign({ mail, newPassword }, process.env.JWT_SECRET, {
+    expiresIn: "15m",
+  });
 
-  return res.redirect("/");
+  await sendPasswordResetMail(mail, token);
+
+  res.send("Se envió un correo para confirmar el cambio de contraseña");
+}
+
+export async function resetPasswordController(req, res) {
+  const { token } = req.params;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { mail, newPassword } = decoded;
+
+    const user = await userModel.findOne({ mail });
+    if (!user) {
+      return res.status(404).send("Usuario no encontrado");
+    }
+
+    const hashedPassword = createHash(newPassword);
+    await userModel.updateOne(
+      { _id: user._id },
+      { $set: { password: hashedPassword } }
+    );
+
+    return res.redirect("/?reset=ok");
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send("Enlace inválido o expirado");
+  }
 }
 
 export async function logoutController(req, res) {

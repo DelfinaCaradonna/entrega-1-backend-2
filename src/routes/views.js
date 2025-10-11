@@ -1,26 +1,28 @@
 import { Router } from "express";
 
-import userModel from "../models/userModel.js";
+import UserDAO from "../dao/UserDAO.js";
 import { passportCall } from "../middlewares/passportAuth.js";
+import { handlePolicies } from "../middlewares/handlePolicies.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
+router.get("/", handlePolicies(['PUBLIC']), (req, res) => {
   const error = req.query.error;
-  res.render("login", { error });
+  const reset = req.query.reset;
+  res.render("login", { error, reset });
 });
 
-router.get("/register", (req, res) => {
+router.get("/register", handlePolicies(['PUBLIC']), (req, res) => {
   const error = req.query.error;
   res.render("register", { error });
 });
 
-router.get("/forgot-password", (req, res) => {
+router.get("/forgot-password", handlePolicies(['PUBLIC']), (req, res) => {
   res.render("forgot-password", {});
 });
 
-router.get("/current", passportCall("jwt"), async (req, res) => {
-  const user = await userModel.findById(req.user.id).lean();
+router.get("/current", passportCall("jwt"), handlePolicies(['USER', 'ADMIN']), async (req, res) => {
+  const user = await UserDAO.findById(req.user.id);
   const { firstname, lastname } = user;
 
   res.render("products", {
